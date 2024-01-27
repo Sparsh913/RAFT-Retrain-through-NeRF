@@ -402,7 +402,7 @@ class TripletFlowAugmentor:
 
             if gt is not None:
                 gt = cv2.resize(gt, None, fx=scale_x, fy=scale_y, interpolation=cv2.INTER_NEAREST) * scale_x
-                conf = cv2.resize(conf, None, fx=scale_x, fy=scale_y, interpolation=cv2.INTER_NEAREST)
+                # conf = cv2.resize(conf, None, fx=scale_x, fy=scale_y, interpolation=cv2.INTER_NEAREST)
 
         if self.do_flip:
             if np.random.rand() < self.h_flip_prob: # h-flip
@@ -415,7 +415,7 @@ class TripletFlowAugmentor:
 
                 if gt is not None:
                     gt = gt[:, ::-1]
-                    conf = conf[:, ::-1]
+                    # conf = conf[:, ::-1]
 
             if np.random.rand() < self.v_flip_prob: # v-flip
                 im1 = im1[::-1, :]
@@ -446,7 +446,7 @@ class TripletFlowAugmentor:
   
         if gt is not None:
             gt = gt[y0:y0+self.crop_size[0], x0:x0+self.crop_size[1]]
-            conf = conf[y0:y0+self.crop_size[0], x0:x0+self.crop_size[1]]
+            # conf = conf[y0:y0+self.crop_size[0], x0:x0+self.crop_size[1]]
 
         angle=0;px=0
         if np.random.binomial(1,0.5):

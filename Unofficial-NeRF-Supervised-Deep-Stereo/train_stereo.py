@@ -182,7 +182,7 @@ def train(args):
                     metrics[k] += bi_metrics[k] * nb
             if nt:
                 tri_flow_predictions = [x[nb:] for x in flow_predictions]
-                tri_loss, tri_metrics = ns_loss(tri_flow_predictions, data_blob['tri']['flow'].cuda(), data_blob['tri']['conf'].cuda(), \
+                tri_loss, tri_metrics = ns_loss(tri_flow_predictions, data_blob['tri']['flow'].cuda(), 0, \
                                                 data_blob['tri']['im0'].cuda(), data_blob['tri']['im1'].cuda(), data_blob['tri']['im2'].cuda(), \
                                                 args.trinocular_loss, args.alpha_disp_loss, args.alpha_photometric, args.conf_threshold)
                 loss += tri_loss * nt

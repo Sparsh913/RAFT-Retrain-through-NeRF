@@ -309,15 +309,15 @@ class NS_Data(data.Dataset):
         data['im1'] = frame_utils.read_gen(self.image_list[index][1])
         data['im2'] = frame_utils.read_gen(self.image_list[index][2])
         data['disp'] = cv2.imread(self.image_list[index][3], -1) / 64.
-        data['conf'] = cv2.imread(self.image_list[index][4], -1) / 65536.
+        # data['conf'] = cv2.imread(self.image_list[index][4], -1) / 65536.
 
         data['im0'] = np.array(data['im0']).astype(np.uint8)
         data['im1'] = np.array(data['im1']).astype(np.uint8)
         data['im2'] = np.array(data['im2']).astype(np.uint8)
         
         data['disp'] = np.squeeze(np.array(data['disp']).astype(np.float32))
-        data['conf'] = np.squeeze(np.array(data['conf']).astype(np.float32))
-        data['disp'] = data['disp'] * np.squeeze((data['conf'] > self.conf_threshold))
+        # data['conf'] = np.squeeze(np.array(data['conf']).astype(np.float32))
+        # data['disp'] = data['disp'] * np.squeeze((data['conf'] > self.conf_threshold))
         data['disp'][np.isinf(data['disp'])] = 0  
         data['disp'][data['disp']> self.disp_threshold] = 0
         
@@ -339,7 +339,7 @@ class NS_Data(data.Dataset):
             data['im1'] = data['im1'][..., :3]
             data['im2'] = data['im2'][..., :3]
 
-        augm_data = self.augmentor(data['im0'], data['im1'], data['im2'], data['disp'], data['conf'])
+        augm_data = self.augmentor(data['im0'], data['im1'], data['im2'], data['disp'])
 
         for k in augm_data:
             if augm_data[k] is not None:
@@ -386,7 +386,7 @@ class NS_Data(data.Dataset):
                 data['im1_forward'] = torch.cat((data['im1_forward'], torch.stack(im1_forward, dim=0)), dim=0)
                 data['im2_forward'] = torch.cat((data['im2_forward'], torch.stack(im2_forward, dim=0)), dim=0)
             data['tri']['flow'] = torch.stack(flow, dim=0)
-            data['tri']['conf'] = torch.stack(conf, dim=0)
+            # data['tri']['conf'] = torch.stack(conf, dim=0)
             data['tri']['im0'] = torch.stack(im0, dim=0)
             data['tri']['im1'] = torch.stack(im1, dim=0)
             data['tri']['im2'] = torch.stack(im2, dim=0)
